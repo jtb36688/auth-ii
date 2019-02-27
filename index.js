@@ -72,3 +72,12 @@ server.post("/api/login", (req, res) => {
       });
   });
   
+server.get("/api/users", restricted, (req, res) => {
+    db.find()
+    .then(users => {
+        res.json({ users, jwtObject: req.jwtObject })
+    })
+})
+
+const port = process.env.PORT || 5000;
+server.listen(port, () => console.log(`\n** Running on port ${port} **\n`));
