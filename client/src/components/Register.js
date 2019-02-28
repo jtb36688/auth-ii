@@ -7,7 +7,8 @@ class Register extends React.Component {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      departments: "",
     };
   }
 
@@ -22,7 +23,8 @@ class Register extends React.Component {
     axios
       .post("http://localhost:5000/api/register/", {
         username: `${this.state.username}`,
-        password: `${this.state.password}`
+        password: `${this.state.password}`,
+        departments: `${this.state.departments}`,
       })
       .then(() => {
         this.props.toggleRegister();
@@ -43,6 +45,11 @@ class Register extends React.Component {
           <input
             name="password"
             placeholder="password"
+            onChange={this.handleChanges}
+          />
+          <input
+            name="departments"
+            placeholder="departments"
             onChange={this.handleChanges}
           />
           <button type="submit">Register User</button>

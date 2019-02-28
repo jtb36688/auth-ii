@@ -12,6 +12,7 @@ const Users = props => {
               <User
                 username={user.username}
                 password={user.password}
+                departmentsarray={user.departments}
               />
             </li>
           );

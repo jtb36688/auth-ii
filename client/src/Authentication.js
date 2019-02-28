@@ -15,14 +15,8 @@ const Authentication = UsersPage => Login => Register =>
     }
 
     componentDidMount() {
-      axios
-      .get("http://localhost:5000/api/checkauth")
-      .then(res => {
-        console.log(res)
-        if (res.data) {
-          this.setState({ loggedIn: true })
-        }
-      })
+      JSON.parse(localStorage.getItem("Authentication")) &&
+        this.submitLogin(JSON.parse(localStorage.getItem("Authentication")))
     }
 
     handleChanges = e => {
