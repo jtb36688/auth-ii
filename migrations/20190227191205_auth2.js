@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
       column.increments();
       column.string("username", 32).notNullable();
       column.string("password", 32).notNullable();
-      column.string("departments", 32).notNullable();
+      column.string("department", 32).notNullable();
     })
 };
 

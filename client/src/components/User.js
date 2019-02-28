@@ -6,7 +6,7 @@ const User = props => {
             <h3>{props.username}</h3>
             <h4>{props.password}</h4>
             <ul>
-                {props.departments.split(',').map(department => {
+                {props.department.split(',').map(department => {
                     {
                         return <li>{department}</li>
                     }

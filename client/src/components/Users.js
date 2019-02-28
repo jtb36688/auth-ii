@@ -8,7 +8,7 @@ const Users = props => {
       <ul className="UsersList">
         {props.usersarray.map(user => {
           return (
-            <li key={user.password}>
+            <li key={user.id}>
               <User
                 username={user.username}
                 password={user.password}

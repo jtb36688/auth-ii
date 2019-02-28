@@ -8,7 +8,7 @@ class Register extends React.Component {
     this.state = {
       username: "",
       password: "",
-      departments: "",
+      department: "",
     };
   }
 
@@ -24,7 +24,7 @@ class Register extends React.Component {
       .post("http://localhost:5000/api/register/", {
         username: `${this.state.username}`,
         password: `${this.state.password}`,
-        departments: `${this.state.departments}`,
+        department: `${this.state.department}`,
       })
       .then(() => {
         this.props.toggleRegister();
@@ -48,8 +48,8 @@ class Register extends React.Component {
             onChange={this.handleChanges}
           />
           <input
-            name="departments"
-            placeholder="departments"
+            name="department"
+            placeholder="department"
             onChange={this.handleChanges}
           />
           <button type="submit">Register User</button>
