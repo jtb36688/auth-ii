@@ -15,10 +15,10 @@ const Authentication = UsersPage => Login => Register =>
     }
 
     componentDidMount() {
-      if (JSON.parse(localStorage.getItem("jwt"))) {
+      if (localStorage.getItem("jwt")) {
         let userdata = JSON.parse(localStorage.getItem("jwt"))
         axios
-          .post("http://localhost:5000/api/auth/checkauth", userdata.token)
+          .post("http://localhost:5000/api/auth/checkauth", {token: userdata.token})
           .then(res => {
             res.data ? this.setState({ loggedIn: true }) : localStorage.clear();
           });

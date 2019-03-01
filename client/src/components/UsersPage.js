@@ -13,7 +13,6 @@ class UsersPage extends Component {
 
   componentDidMount() {
     let userdata = JSON.parse(localStorage.getItem("jwt"))
-    console.log(userdata)
     axios
       .get("http://localhost:5000/api/users/", {
         headers: {

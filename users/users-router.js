@@ -11,9 +11,10 @@ const checkRole = require("../auth/checkdeptMW.js");
 //   });
 
 // router.get("/", restricted, (req, res) => {
+//   console.log(req.headers.department)
 //   db.find().then(users => {
 //     res.json(
-//       users.data.map(user => {
+//       users.map(user => {
 //         if (user.department == req.headers.department) {
 //           return user;
 //         }
@@ -21,5 +22,12 @@ const checkRole = require("../auth/checkdeptMW.js");
 //     );
 //   });
 // });
+
+router.get("/", restricted, (req, res) => {
+  db.findBy({department: req.headers.department})
+  .then(users => {
+    res.json({ users, jwtObject: req.jwtObject });
+  });
+});
 
 module.exports = router;
