@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Users from "./Users";
+axios.defaults.withCredentials = true;
 
 class UsersPage extends Component {
   constructor(props) {
@@ -11,11 +12,15 @@ class UsersPage extends Component {
   }
 
   componentDidMount() {
+    let token = localStorage.getItem("jwt")
     axios
       .get("http://localhost:5000/api/users/", {
+        headers: {
+          authorization: token
+        }
       })
       .then(res => {
-        this.setState({ users: res.data });
+        this.setState({ users: res.data["users"] });
       })
       .catch(err => console.log(err));
   }

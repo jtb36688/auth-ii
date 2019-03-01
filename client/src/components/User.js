@@ -5,13 +5,7 @@ const User = props => {
         <div className="UserContainer">
             <h3>{props.username}</h3>
             <h4>{props.password}</h4>
-            <ul>
-                {props.department.split(',').map(department => {
-                    {
-                        return <li>{department}</li>
-                    }
-                })}
-            </ul>
+            <h5>{props.department}</h5>
         </div>
     )
 }

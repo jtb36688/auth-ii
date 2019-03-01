@@ -15,8 +15,14 @@ const Authentication = UsersPage => Login => Register =>
     }
 
     componentDidMount() {
-      JSON.parse(localStorage.getItem("Authentication")) &&
-        this.submitLogin(JSON.parse(localStorage.getItem("Authentication")))
+      if (localStorage.getItem("jwt")) {
+        let jwt = localStorage.getItem("jwt")
+        axios
+          .post("http://localhost:5000/api/auth/checkauth", {token: jwt})
+          .then(res => {
+            res.data ? this.setState({ loggedIn: true }) : localStorage.clear();
+          });
+      }
     }
 
     handleChanges = e => {
@@ -26,11 +32,12 @@ const Authentication = UsersPage => Login => Register =>
     submitLogin = e => {
       e.preventDefault();
       axios
-        .post("http://localhost:5000/api/login", {
+        .post("http://localhost:5000/api/auth/login", {
           username: `${this.state.usernamevalue}`,
           password: `${this.state.passwordvalue}`
         })
         .then(res => {
+          localStorage.setItem("jwt", res.data.token);
           this.setState({ loggedIn: true });
         })
         .catch(err => alert(err));
@@ -43,11 +50,12 @@ const Authentication = UsersPage => Login => Register =>
     };
 
     handleLogout = () => {
-      axios.get("http://localhost:5000/api/logout")
-      .then(() => {
-        this.setState({ loggedIn: false })
-      })
-      .catch(err => alert(err))
+      axios
+        .get("http://localhost:5000/api/auth/logout")
+        .then(() => {
+          this.setState({ loggedIn: false });
+        })
+        .catch(err => alert(err));
     };
 
     conditionalRender = () => {

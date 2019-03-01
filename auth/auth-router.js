@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const secrets = require("../config/secrets.js");
 
-const tokenService = require('../auth/token-service.js');
-const db = require('../users/users-module.js')
+const tokenService = require("../auth/token-service.js");
+const db = require("../users/users-module.js");
 
 router.post("/register", (req, res) => {
   let user = req.body;
@@ -24,11 +26,23 @@ router.post("/login", (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = tokenService.makejwt(user);
-        res.status(200).json({ message: `welcome ${user.username}`, token});
+        res.status(200).json({ message: `welcome ${user.username}`, token });
       } else {
         res.status(401).json({ message: "You shall not pass!" });
       }
     });
+});
+
+router.post("/checkauth", (req, res) => {
+  console.log("token check", req.body)
+  const token = req.body;
+  jwt.verify(token, secrets.jwtSecret, err => {
+    if (err) {
+      res.send(false);
+    } else {
+      res.send(true);
+    }
+  });
 });
 
 module.exports = router;

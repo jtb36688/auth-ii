@@ -21,7 +21,7 @@ class Register extends React.Component {
   handleRegister = e => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/register/", {
+      .post("http://localhost:5000/api/auth/register/", {
         username: `${this.state.username}`,
         password: `${this.state.password}`,
         department: `${this.state.department}`,
