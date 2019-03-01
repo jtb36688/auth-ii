@@ -34,8 +34,8 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/checkauth", (req, res) => {
-  console.log("token check", req.body)
-  const token = req.body;
+  console.log("token check", req.body.token)
+  const token = req.body.token;
   jwt.verify(token, secrets.jwtSecret, err => {
     if (err) {
       res.send(false);

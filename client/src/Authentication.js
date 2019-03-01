@@ -50,12 +50,8 @@ const Authentication = UsersPage => Login => Register =>
     };
 
     handleLogout = () => {
-      axios
-        .get("http://localhost:5000/api/auth/logout")
-        .then(() => {
-          this.setState({ loggedIn: false });
-        })
-        .catch(err => alert(err));
+      localStorage.clear();
+      this.setState({ loggedIn: false })
     };
 
     conditionalRender = () => {
