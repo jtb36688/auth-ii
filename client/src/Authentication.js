@@ -15,10 +15,10 @@ const Authentication = UsersPage => Login => Register =>
     }
 
     componentDidMount() {
-      if (localStorage.getItem("jwt")) {
-        let jwt = localStorage.getItem("jwt")
+      if (JSON.parse(localStorage.getItem("jwt"))) {
+        let userdata = JSON.parse(localStorage.getItem("jwt"))
         axios
-          .post("http://localhost:5000/api/auth/checkauth", {token: jwt})
+          .post("http://localhost:5000/api/auth/checkauth", userdata.token)
           .then(res => {
             res.data ? this.setState({ loggedIn: true }) : localStorage.clear();
           });
@@ -37,7 +37,7 @@ const Authentication = UsersPage => Login => Register =>
           password: `${this.state.passwordvalue}`
         })
         .then(res => {
-          localStorage.setItem("jwt", res.data.token);
+          localStorage.setItem("jwt", JSON.stringify(res.data.userdata));
           this.setState({ loggedIn: true });
         })
         .catch(err => alert(err));

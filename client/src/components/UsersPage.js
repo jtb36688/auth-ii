@@ -12,11 +12,13 @@ class UsersPage extends Component {
   }
 
   componentDidMount() {
-    let token = localStorage.getItem("jwt")
+    let userdata = JSON.parse(localStorage.getItem("jwt"))
+    console.log(userdata)
     axios
       .get("http://localhost:5000/api/users/", {
         headers: {
-          authorization: token
+          authorization: userdata.token,
+          department: userdata.department
         }
       })
       .then(res => {
